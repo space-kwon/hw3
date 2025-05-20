@@ -1,0 +1,13 @@
+<h1><%= @place.name %></h1>
+<%= link_to "Back to all places", places_path %>
+
+<h2>Entries</h2>
+<ul>
+  <% @entries.each do |entry| %>
+    <li>
+      <strong><%= entry.title %></strong> (<%= entry.posted_on %>)<br>
+      <%= entry.description %>
+    </li>
+  <% end %>
+</ul>
+<%= link_to "Add a new entry", new_place_entry_path(@place) %>

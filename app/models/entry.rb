@@ -1,3 +1,5 @@
 class Entry < ApplicationRecord
-  # talks to the "entries" table
+  belongs_to :place
+  validates :title, presence: true
+  validates :posted_on, presence: true
 end

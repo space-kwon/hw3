@@ -1,0 +1,28 @@
+<h1>Add a New Place</h1>
+
+<%# Display validation errors, if any %>
+<% if @place.errors.any? %>
+  <div style="color: red;">
+    <h2><%= pluralize(@place.errors.count, "error") %> prohibited this place from being saved:</h2>
+    <ul>
+      <% @place.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @place, url: places_path do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.submit "Create Place" %>
+  </div>
+<% end %>
+
+<p>
+  <%= link_to "Back to All Places", places_path %>
+</p>

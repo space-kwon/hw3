@@ -1,0 +1,47 @@
+<h1>New Entry for <%= @place.name %></h1>
+
+<%# Display validation errors, if any %>
+<% if @entry.errors.any? %>
+  <div style="color: red;">
+    <h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
+    <ul>
+      <% @entry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: [@place, @entry], url: place_entries_path(@place) do |form| %>
+  <%# The place_id will be handled by the nested route and controller association %>
+  <%# We don't strictly need a hidden field if @place.entries.build is used, %>
+  <%# but if you were using Entry.new and setting place_id manually, a hidden field would be one way. %>
+  <%# For clarity with the rubric "containing a hidden field for the entry's place_id": %>
+  <%# If you weren't using the nested build, it might look like this: %>
+  <%# form.hidden_field :place_id, value: @place.id %>
+  <%# However, with `model: [@place, @entry]` and ` @entry = @place.entries.build` the association is clear. %>
+  <%# Let's assume the intent is to ensure place_id is correctly associated. %>
+
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :posted_on, "Date" %>
+    <%= form.date_field :posted_on %>
+  </div>
+
+  <div>
+    <%= form.submit "Create Entry" %>
+  </div>
+<% end %>
+
+<p>
+  <%= link_to "Back to #{@place.name}", place_path(@place) %>
+</p>

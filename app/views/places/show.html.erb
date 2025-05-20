@@ -1,0 +1,26 @@
+<h1><%= @place.name %></h1>
+
+<p>
+  <%= link_to "Back to All Places", places_path %>
+</p>
+
+<hr>
+
+<h2>Entries for <%= @place.name %></h2>
+<% if @entries.any? %>
+  <ul>
+    <% @entries.each do |entry| %>
+      <li>
+        <h3><%= entry.title %></h3>
+        <p><em>Posted on: <%= entry.posted_on.strftime("%B %d, %Y") %></em></p>
+        <p><%= entry.description %></p>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No entries yet for this place.</p>
+<% end %>
+
+<p>
+  <%= link_to "Add New Entry for #{@place.name}", new_place_entry_path(@place) %>
+</p>
